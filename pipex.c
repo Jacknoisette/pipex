@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 15:31:55 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/06 17:12:25 by jdhallen         ###   ########.fr       */
+/*   Created: 2025/01/07 10:09:45 by jdhallen          #+#    #+#             */
+/*   Updated: 2025/01/07 11:37:57 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	pipe_creation(t_pipex *env)
 {
 	if (pipe(env->pipe_fd) == -1)
 	{
-   		perror("pipe failed");
-   		ft_exit(env, ERROR);
+		perror("pipe failed");
+		ft_exit(env, ERROR);
 	}
 }
 
@@ -39,6 +39,7 @@ void	first_child_creation(t_pipex *env)
 		}
 		close(env->pipe_fd[0]);
 		execute_command(env, env->input, env->pipe_fd[1], 2);
+		close(env->input);
 	}
 }
 
@@ -60,6 +61,7 @@ void	second_child_creation(t_pipex *env)
 		}
 		close(env->pipe_fd[1]);
 		execute_command(env, env->pipe_fd[0], env->output, 3);
+		close(env->output);
 	}
 }
 
@@ -67,36 +69,39 @@ int	parent(t_pipex *env)
 {
 	pipe_creation(env);
 	first_child_creation(env);
+	if (env->path != NULL)
+		free(env->path);
 	second_child_creation(env);
+	if (env->path != NULL)
+		free(env->path);
 	close(env->pipe_fd[0]);
-    close(env->pipe_fd[1]);
-    waitpid(env->child1, NULL, 0);
-    waitpid(env->child2, NULL, 0);
+	close(env->pipe_fd[1]);
+	waitpid(env->child1, NULL, 0);
+	waitpid(env->child2, NULL, 0);
+	if (env->exec != NULL)
+		free(env->exec);
 	return (0);
 }
 
-int pipex(int argc, char **argv, char **envp)
+int	pipex(int argc, char **argv, char **envp)
 {
 	t_pipex	env;
-	
+
 	env.argc = argc;
 	env.argv = argv;
 	env.env = envp;
+	env.exec = NULL;
+	env.path = NULL;
 	if (env.argc != 5)
 	{
-		ft_printf(1, "Wrong argument number\n");
-		exit(ERROR);
+		ft_printf(1, "Wrong number of arg\n");
+		ft_exit(&env, ERROR);
 	}
 	if (security(&env) == -1)
-	{	
-		ft_printf(1, "Wrong perm in files\n");
-		exit(ERROR);
+	{
+		ft_printf(1, "file error\n");
+		ft_exit(&env, ERROR);
 	}
-	// env.fd1 = open(argv[1], O_WRONLY);
-	// env.fd2 = open(argv[4], O_CREAT, O_WRONLY, O_TRUNC);
 	parent(&env);
-	close(env.fd1);
-	close(env.fd2);
-	free(env.exec);
 	return (0);
 }

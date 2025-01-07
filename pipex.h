@@ -6,7 +6,7 @@
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:00:56 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/06 17:05:18 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/07 10:12:30 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,17 @@
 # include <limits.h>
 
 # ifndef ERROR
-# define ERROR -1
+#  define ERROR -1
 # endif
 
-typedef	struct s_pipex
+typedef struct s_pipex
 {
 	pid_t	child1;
 	pid_t	child2;
 	char	**exec;
-	char 	**argv;
-	char 	**env;
+	char	**argv;
+	char	**env;
+	char	*path;
 	int		pipe_fd[2];
 	int		argc;
 	int		output;
@@ -43,9 +44,10 @@ typedef	struct s_pipex
 void	ft_exit(t_pipex *env, int message);
 void	first_child_creation(t_pipex *env);
 void	second_child_creation(t_pipex *env);
+void	free_tab(char **tab);
 void	execute_command(t_pipex *env, int input, int output, int cmd);
 int		parent(t_pipex *env);
 int		pipex(int argc, char **argv, char **envp);
-int 	security(t_pipex *env);
+int		security(t_pipex *env);
 
 #endif
