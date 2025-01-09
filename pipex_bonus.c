@@ -6,7 +6,7 @@
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 12:12:00 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/08 18:02:36 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/09 09:16:49 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	parent_bonus(t_pipex *env)
 {
 	int	j;
 	
-	env->child = malloc((env->argc - 4) * sizeof(pid_t));
+	env->child = malloc((env->argc - 3) * sizeof(pid_t));
 	if (env->child == NULL)
 		ft_exit_bonus(env, ERROR);
 	env->i = 0;
@@ -34,14 +34,15 @@ int	parent_bonus(t_pipex *env)
 		dprintf(2, "\nchild number %d\n", env->i);
 		if (env->i > 0)
 		{
-			if (env->prev == env->pipe_fd[0])
-				ft_printf(1, "okayyy\n");
+			if (env->i > 1)
+				close(env->prev);
 			env->prev = env->pipe_fd[0];
-			close(env->pipe_fd[0]);
+			if (env->prev == -1)
+				ft_exit_bonus(env, ERROR);
 			close(env->pipe_fd[1]);
 		}
-		// if (env->i < env->argc - 4)
-		pipe_creation_bonus(env);
+		if (env->i < env->argc - 4)
+			pipe_creation_bonus(env);
 		ft_printf(1, "i : %s\n", env->argv[env->i + 2]);
 		ft_printf(1, "i : %i\n", env->i);
 		if (env->i == 0)
