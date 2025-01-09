@@ -6,7 +6,7 @@
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:10:03 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/08 17:48:10 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:42:48 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	execute_command_bonus(t_pipex *env, int input, int output, int cmd)
 	if (env->path == NULL)
 		ft_exit_bonus(env, ERROR);
 	write(2, "find path ok\n", 14);
+	dprintf(2, "try to exec : %s\n", env->path);
 	execve(env->path, env->exec, env->env);
 	perror("\nexecve failed");
 	ft_exit_bonus(env, ERROR);

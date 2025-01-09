@@ -6,7 +6,7 @@
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 12:11:56 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/08 16:20:57 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:34:47 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ typedef struct s_pipex
 	char	**argv;
 	char	**env;
 	char	*path;
+	char	*hd_limit;
+	int		hd;
+	int		hd_fd;
+	int		hd_size;
 	int		pipe_fd[2];
 	int		prev;
 	int		argc;
@@ -80,9 +84,11 @@ void	middle_child_bonus(t_pipex *env, int i);
 void	last_child_bonus(t_pipex *env, int i);
 void	free_tab_bonus(char **tab);
 void	execute_command_bonus(t_pipex *env, int input, int output, int cmd);
+void	here_doc(t_pipex *env);
 int		parent_bonus(t_pipex *env);
 int		pipex_bonus(int argc, char **argv, char **envp);
 int		security_bonus(t_pipex *env);
-void 	close_unused_pipes(t_pipex *env, int current_pipe);
+
+int		ft_open(char *file, int read_or_write, char *where);
 
 #endif

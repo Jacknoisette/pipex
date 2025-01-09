@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdhallen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:13:55 by jdhallen          #+#    #+#             */
-/*   Updated: 2024/11/18 16:49:10 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/06 10:11:21 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-size_t	ft_strlen(const char *s);
-char	*ft_strdup(const char *s);
+size_t	ft_strlen_g(const char *s);
+char	*ft_strdup_g(const char *s);
 char	*get_next_line(int fd);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strchr_g(const char *s, int c);
+char	*ft_strjoin_g(char const *s1, char const *s2);
+char	*ft_substr_g(char const *s, unsigned int start, size_t len);
 
 #endif

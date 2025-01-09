@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdhallen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 09:25:03 by jdhallen          #+#    #+#             */
-/*   Updated: 2024/11/14 14:30:01 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/06 10:11:39 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*read_and_store(int fd, char *store)
 	local = malloc(BUFFER_SIZE + 1);
 	if (local == NULL)
 		return (NULL);
-	while (store != NULL && ft_strchr(store, '\n') == NULL)
+	while (store != NULL && ft_strchr_g(store, '\n') == NULL)
 	{
 		readbyte = read(fd, local, BUFFER_SIZE);
 		if (readbyte == -1)
@@ -30,7 +30,7 @@ static char	*read_and_store(int fd, char *store)
 			break ;
 		local[readbyte] = '\0';
 		temp = store;
-		store = ft_strjoin(store, local);
+		store = ft_strjoin_g(store, local);
 		free(temp);
 		if (store == NULL)
 			return (free(local), NULL);
@@ -46,28 +46,28 @@ static char	*extract_line(char **store)
 
 	if (*store == NULL || **store == '\0')
 		return (NULL);
-	enl_pos = ft_strchr(*store, '\n');
+	enl_pos = ft_strchr_g(*store, '\n');
 	if (enl_pos == NULL)
 	{
-		line = ft_strdup(*store);
+		line = ft_strdup_g(*store);
 		if (line == NULL)
 			return (NULL);
 		free(*store);
 		*store = NULL;
 		return (line);
 	}
-	line = ft_substr(*store, 0, enl_pos - *store + 1);
+	line = ft_substr_g(*store, 0, enl_pos - *store + 1);
 	if (line == NULL)
 		return (free(*store), *store = NULL, NULL);
 	temp = *store;
-	*store = ft_strdup(enl_pos + 1);
+	*store = ft_strdup_g(enl_pos + 1);
 	free(temp);
 	if (*store == NULL)
 		return (free(line), NULL);
 	return (line);
 }
 
-static size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+static size_t	ft_strlcpy_g(char *dst, const char *src, size_t size)
 {
 	size_t	i;
 	size_t	ls;
@@ -95,10 +95,10 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	store = ft_strdup(buffer[fd]);
+	store = ft_strdup_g(buffer[fd]);
 	if (store == NULL)
 		return (NULL);
-	if (ft_strchr(store, '\n') == NULL)
+	if (ft_strchr_g(store, '\n') == NULL)
 	{
 		store = read_and_store(fd, store);
 		if (store == NULL)
@@ -106,7 +106,7 @@ char	*get_next_line(int fd)
 	}
 	line = extract_line(&store);
 	if (store != NULL && *store != '\0')
-		ft_strlcpy(buffer[fd], store, BUFFER_SIZE + 1);
+		ft_strlcpy_g(buffer[fd], store, BUFFER_SIZE + 1);
 	else
 		buffer[fd][0] = '\0';
 	free(store);

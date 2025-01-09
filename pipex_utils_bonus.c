@@ -6,7 +6,7 @@
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:45:33 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/08 11:22:25 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:27:58 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,23 @@
 
 int	security_bonus(t_pipex *env)
 {
-	if (access(env->argv[1], F_OK) == -1)
+	if (env->hd == 0)
+	{
+		if (access(env->argv[1], F_OK) == -1)
+			return (-1);
+		if (access(env->argv[1], R_OK) == -1)
 		return (-1);
+	}
+	else
+	{
+		if (access("hd_temp", F_OK) == -1)
+			return (-1);
+		if (access("hd_temp", R_OK) == -1)
+		return (-1);
+	}
 	if (access(env->argv[env->argc - 1], F_OK) == -1)
 		return (-1);
-	if (access(env->argv[1], R_OK) == -1)
-		return (-1);
+	
 	if (access(env->argv[env->argc - 1], W_OK) == -1)
 		return (-1);
 	return (0);
@@ -42,11 +53,12 @@ void	free_tab_bonus(char **tab)
 
 void	ft_exit_bonus(t_pipex *env, int message)
 {
-	ft_printf(1, "When there is a problem you know it\n");
+	close(env->pipe_fd[1]);
+	close(env->pipe_fd[0]);
+	close(env->hd_fd);
 	if (env->exec != NULL)
 		free_tab_bonus(env->exec);
 	if (env->child != NULL)
 		free(env->child);
 	exit(message);
 }
-

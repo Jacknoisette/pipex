@@ -6,7 +6,7 @@
 #    By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/21 15:17:46 by jdhallen          #+#    #+#              #
-#    Updated: 2025/01/07 12:33:22 by jdhallen         ###   ########.fr        #
+#    Updated: 2025/01/09 10:52:30 by jdhallen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ LIBFT_DIR = Libft
 
 SRCS = main.c pipex.c pipex_utils.c pipex_exec.c
 BONUS = main_bonus.c pipex_bonus.c pipex_utils_bonus.c \
-	pipex_exec_bonus.c pipex_child_bonus.c
+		pipex_exec_bonus.c pipex_child_bonus.c \
+		pipex_here_doc_bonus.c \
 
 OBJS = $(SRCS:.c=.o)
 OBJS_BONUS = $(BONUS:.c=.o)

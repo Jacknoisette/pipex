@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdhallen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:13:44 by jdhallen          #+#    #+#             */
-/*   Updated: 2024/11/14 14:31:54 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/06 10:12:18 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr_g(const char *s, int c)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup_g(const char *s)
 {
 	char	*store;
 	int		l;
@@ -54,7 +54,7 @@ char	*ft_strdup(const char *s)
 	return (store);
 }
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen_g(const char *s)
 {
 	size_t	i;
 
@@ -66,21 +66,21 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr_g(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	size_t	j;
 	char	*t;
 
-	if (start >= ft_strlen(s))
+	if (start >= ft_strlen_g(s))
 	{
 		t = malloc(1);
 		if (t != NULL)
 			t[0] = '\0';
 		return (t);
 	}
-	if (ft_strlen(s) - start < len)
-		t = (char *)malloc(((ft_strlen(s) - start) + 1) * (sizeof(char)));
+	if (ft_strlen_g(s) - start < len)
+		t = (char *)malloc(((ft_strlen_g(s) - start) + 1) * (sizeof(char)));
 	else
 		t = (char *)malloc((len + 1) * (sizeof(char)));
 	if (t == NULL)
@@ -93,7 +93,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (t);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_g(char const *s1, char const *s2)
 {
 	size_t	i;
 	size_t	j;
