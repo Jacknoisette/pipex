@@ -6,7 +6,7 @@
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 12:11:56 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/13 11:02:54 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:49:43 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	here_doc(t_pipex *env);
 int		parent_bonus(t_pipex *env);
 int		pipex_bonus(int argc, char **argv, char **envp);
 int		security_bonus(t_pipex *env);
-
-int		ft_open(char *file, int read_or_write, char *where);
+int		ft_open_bonus(char *file, int read_or_write);
 
 #endif

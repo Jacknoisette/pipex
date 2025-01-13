@@ -6,7 +6,7 @@
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:09:45 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/07 11:37:57 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:44:48 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int	pipex(int argc, char **argv, char **envp)
 	env.argc = argc;
 	env.argv = argv;
 	env.env = envp;
+	env.pipe_fd[0] = -1;
+	env.pipe_fd[1] = -1;
 	env.exec = NULL;
 	env.path = NULL;
 	if (env.argc != 5)

@@ -6,7 +6,7 @@
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:47:18 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/07 11:09:35 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:03:58 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ void	free_tab(char **tab)
 
 void	ft_exit(t_pipex *env, int message)
 {
+	if (env->pipe_fd[1] != -1)
+		close(env->pipe_fd[1]);
+	if (env->pipe_fd[0] != -1)
+		close(env->pipe_fd[0]);
 	if (env->exec != NULL)
 		free_tab(env->exec);
 	exit(message);
