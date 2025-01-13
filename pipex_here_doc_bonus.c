@@ -6,7 +6,7 @@
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:44:18 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/09 15:46:00 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/13 11:29:48 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,6 @@ void	here_doc(t_pipex *env)
 		ft_exit_bonus(env, ERROR);
 	}
 	write_in_hd(env);
+	close(env->hd_fd);
+	env->hd_fd = ft_open("hd_temp", 0, "here_doc2");
 }

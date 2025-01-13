@@ -6,7 +6,7 @@
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 12:12:00 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/09 15:41:50 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/13 11:43:22 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	parent_bonus(t_pipex *env)
 		free(env->exec);
 	if (env->child != NULL)
 		free(env->child);
+	if (env->hd == 1)
+		close(env->hd_fd);
 	return (0);
 }
 
@@ -88,13 +90,14 @@ int	pipex_bonus(int argc, char **argv, char **envp)
 	env.argc = argc;
 	env.argv = argv;
 	env.env = envp;
+	env.pipe_fd[0] = -1;
+	env.pipe_fd[1] = -1;
+	env.child = NULL;
 	env.exec = NULL;
 	env.path = NULL;
 	env.hd = 0;
 	if (ft_strncmp(env.argv[1], "here_doc", 9) == 0)
-	{
 		here_doc(&env);
-	}
 	if (env.argc < 5 + env.hd)
 	{
 		ft_printf(1, "Wrong number of arg\n");
@@ -106,5 +109,7 @@ int	pipex_bonus(int argc, char **argv, char **envp)
 		ft_exit_bonus(&env, ERROR);
 	}
 	parent_bonus(&env);
+	if (env.hd == 1 && unlink("hd_temp") == -1)
+		perror("Failed to unlink hd_temp");
 	return (0);
 }

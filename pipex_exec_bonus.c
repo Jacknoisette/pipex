@@ -6,7 +6,7 @@
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:10:03 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/09 15:42:48 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/13 11:41:00 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,6 @@ void	execute_command_bonus(t_pipex *env, int input, int output, int cmd)
 	env->exec = ft_split(env->argv[cmd], ' ');
 	if (env->exec == NULL)
 		ft_exit_bonus(env, ERROR);
-	if (env->exec[0][0] == '/')
-	{
-		ft_printf(2, "permission denied: %s\n", env->exec[0]);
-		ft_exit_bonus(env, ERROR);
-	}
 	dprintf(2, "input : %i output : %i\n", input, output);
 	if (input != STDIN_FILENO)
 	{
@@ -90,6 +85,13 @@ void	execute_command_bonus(t_pipex *env, int input, int output, int cmd)
 	find_path_command_bonus(env);
 	if (env->path == NULL)
 		ft_exit_bonus(env, ERROR);
+	pathlen = ft_strlen(env->path);
+	ft_printf(2, "c : %c\n", env->path[pathlen - 1]);
+	if (env->path[pathlen - 1] == '/')
+	{
+		ft_printf(2, "permission denied: %s\n", env->exec[0]);
+		ft_exit_bonus(env, ERROR);
+	}
 	write(2, "find path ok\n", 14);
 	dprintf(2, "try to exec : %s\n", env->path);
 	execve(env->path, env->exec, env->env);

@@ -64,6 +64,8 @@ int	find_path_command(t_pipex *env)
 
 void	execute_command(t_pipex *env, int input, int output, int cmd)
 {
+	int	pathlen;
+
 	env->exec = ft_split(env->argv[cmd], ' ');
 	if (env->exec == NULL)
 		ft_exit(env, ERROR);
@@ -83,8 +85,13 @@ void	execute_command(t_pipex *env, int input, int output, int cmd)
 		close(output);
 	}
 	find_path_command(env);
-	if (env->path == NULL)
-		ft_exit(env, ERROR);
+	pathlen = ft_strlen(env->path);
+	ft_printf(2, "c : %c\n", env->path[pathlen - 1]);
+	if (env->path[pathlen - 1] == '/')
+	{
+		ft_printf(2, "permission denied: %s\n", env->exec[0]);
+		ft_exit_bonus(env, ERROR);
+	}
 	execve(env->path, env->exec, env->env);
 	perror("\nexecve failed");
 	ft_exit(env, ERROR);

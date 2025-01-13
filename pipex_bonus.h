@@ -6,7 +6,7 @@
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 12:11:56 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/09 15:34:47 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/13 11:02:54 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,36 +26,36 @@
 #  define ERROR -1
 # endif
 
-# define close(fd) \
-do \
-{ \
-	fprintf(stderr, "close(%d) at %s:%d\n", \
-			fd, __FILE__, __LINE__); \
-	close(fd); \
-} while (0)
+// # define close(fd) \
+// do \
+// { \
+// 	fprintf(stderr, "close(%d) at %s:%d\n", \
+// 			fd, __FILE__, __LINE__); \
+// 	close(fd); \
+// } while (0)
 
-# define pipe(pipefd) \
-({ \
-	int ret = pipe(pipefd); \
-	if (ret == -1) \
-		fprintf(stderr, "pipe(%p) at %s:%d failed: %s\n", \
-				pipefd, __FILE__, __LINE__, strerror(errno)); \
-	else \
-		fprintf(stderr, "pipe("#pipefd") = {%d,%d} at %s:%d\n", \
-		pipefd[0], pipefd[1], \
-		__FILE__, __LINE__); \
-	ret; \
-})
+// # define pipe(pipefd) \
+// ({ \
+// 	int ret = pipe(pipefd); \
+// 	if (ret == -1) \
+// 		fprintf(stderr, "pipe(%p) at %s:%d failed: %s\n", \
+// 				pipefd, __FILE__, __LINE__, strerror(errno)); \
+// 	else \
+// 		fprintf(stderr, "pipe("#pipefd") = {%d,%d} at %s:%d\n", \
+// 		pipefd[0], pipefd[1], \
+// 		__FILE__, __LINE__); \
+// 	ret; \
+// })
 
-# define dup2(fd1, fd2) \
-({ \
-	int ret = dup2(fd1, fd2); \
-	fprintf(stderr, "dup2(%d, %d) at %s:%d\n", \
-			fd1, fd2, __FILE__, __LINE__); \
-	if (ret == -1) \
-	 	perror("dup2"); \
-	ret; \
-})
+// # define dup2(fd1, fd2) \
+// ({ \
+// 	int ret = dup2(fd1, fd2); \
+// 	fprintf(stderr, "dup2(%d, %d) at %s:%d\n", \
+// 			fd1, fd2, __FILE__, __LINE__); \
+// 	if (ret == -1) \
+// 	 	perror("dup2"); \
+// 	ret; \
+// })
 
 typedef struct s_pipex
 {

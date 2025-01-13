@@ -6,7 +6,7 @@
 /*   By: jdhallen <jdhallen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:08:12 by jdhallen          #+#    #+#             */
-/*   Updated: 2025/01/09 15:46:58 by jdhallen         ###   ########.fr       */
+/*   Updated: 2025/01/13 11:29:46 by jdhallen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	ft_open(char *file, int read_or_write, char *where)
 
 	if (read_or_write == 0)
 		fd = open(file, O_RDONLY);
-	if (read_or_write == 2)
-		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC | O_RDONLY, 0644);
+	else if (read_or_write == 2)
+		fd = open(file, O_WRONLY | O_RDONLY | O_CREAT | O_TRUNC, 0777);
 	else
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	fprintf(stderr, "open = %d at %s\n", fd, where);
@@ -49,6 +49,7 @@ void	first_child_bonus(t_pipex *env, int i)
 		execute_command_bonus(env, env->input, env->pipe_fd[1], i + 2 + env->hd);
 	}
 }
+
 
 void	middle_child_bonus(t_pipex *env, int i)
 {
